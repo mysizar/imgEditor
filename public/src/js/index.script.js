@@ -244,6 +244,9 @@ const resizeW = document.getElementById("resizeW"),
 
 // send RESIZE parameters and get new image data
 async function resizeImg() {
+  // set waiting animation
+  document.getElementById("overlay").style.display = "flex";
+
   const b64str = await checkChanges();
   const inputW = parseInt(resizeW.value);
   const inputH = parseInt(resizeH.value);
@@ -285,6 +288,10 @@ async function resizeImg() {
 
   // show resized img from server
   previewImg.src = json.resized;
+  // disable animation after loading the picture
+  previewImg.addEventListener("load", () => {
+    document.getElementById("overlay").style.display = "none";
+  });
 }
 
 resizeBtn.addEventListener("click", resizeImg);
