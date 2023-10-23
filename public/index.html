@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/css/index.style.css" />
+    <title>JS Image Editor</title>
+  </head>
+  <body>
+    <section class="upload-area" id="upload-area" style="visibility: visible">
+      <div class="drag-area">
+        <div class="icon">
+          <img src="./src/img/cloud.svg" alt="upload icon" />
+        </div>
+        <header>Drag & Drop to Upload File</header>
+        <span>OR</span>
+        <label for="uploadImg">Browse File</label>
+        <input id="uploadImg" type="file" accept="image/*" hidden />
+        <div id="loader-ring"></div>
+      </div>
+    </section>
+    <section class="editor-body">
+      <div class="container disable">
+        <h2>JS Image Editor</h2>
+        <div class="wrapper">
+          <div class="editor-group">
+            <div class="editor-panel">
+              <div class="filter">
+                <label class="title">Filters</label>
+                <div class="options">
+                  <button id="brightness" class="active">Brightness</button>
+                  <button id="saturation">Saturation</button>
+                  <button id="contrast">Contrast</button>
+                  <button id="grayscale">Grayscale</button>
+                </div>
+                <div class="slider">
+                  <div class="filter-info">
+                    <p class="name">Brighteness</p>
+                    <p class="value">100%</p>
+                  </div>
+                  <input type="range" value="100" min="0" max="200" />
+                </div>
+              </div>
+              <div class="rotate">
+                <label class="title">Rotate & Flip</label>
+                <div class="options">
+                  <button id="left">
+                    <img src="./src/img/rotate-left.svg" alt="turn-left" />
+                  </button>
+                  <button id="right">
+                    <img src="./src/img/rotate-right.svg" alt="turn-right" />
+                  </button>
+                  <button id="horizontal">
+                    <img
+                      src="./src/img/reflect-horizontal.svg"
+                      alt="flip horizontal"
+                    />
+                  </button>
+                  <button id="vertical">
+                    <img
+                      src="./src/img/reflect-vertical.svg"
+                      alt="flip vertical"
+                    />
+                  </button>
+                </div>
+              </div>
+              <!-- <div class="apply-filters">
+                <button class="reset-filter">Reset</button>
+                <button class="apply-changes">Apply</button>
+              </div> -->
+            </div>
+
+            <div class="editor-panel">
+              <label class="title">Resize</label>
+              <div class="edit-container-inputs">
+                <div class="input-group">
+                  <input
+                    id="resizeW"
+                    type="number"
+                    placeholder="px"
+                    title="To keep the aspect ratio, enter ONLY the width OR height"
+                  />
+                  <label for="resizeW">Width</label>
+                </div>
+                <div class="input-group">
+                  <input
+                    id="resizeH"
+                    type="number"
+                    placeholder="px"
+                    title="To keep the aspect ratio, enter ONLY the width OR height"
+                  />
+                  <label for="resizeH">Height</label>
+                </div>
+              </div>
+              <button class="apply-button" id="resizeBtn" disabled>
+                Resize it!
+              </button>
+            </div>
+            <div class="editor-panel">
+              <label class="title">Crop</label>
+              <div class="edit-container-inputs">
+                <div class="input-group">
+                  <label class="label crop" for="activateGrid">
+                    <img src="./src/img/selection.svg" alt="select tool" />
+                    <p>Click to select area</p>
+                  </label>
+                  <input
+                    id="activateGrid"
+                    type="checkbox"
+                    style="display: none"
+                  />
+                </div>
+              </div>
+              <button class="apply-button" id="cropBtn" disabled>
+                Crop it!
+              </button>
+            </div>
+          </div>
+          <div class="preview-img">
+            <img src="./src/img/image-placeholder.svg" alt="preview-img" />
+            <div id="imageTemplate">
+              <div id="rect-border" class="rect-border">
+                <div id="lt" class="eckbox left-top"></div>
+                <div id="lb" class="eckbox left-bottom"></div>
+                <div id="rt" class="eckbox right-top"></div>
+                <div id="rb" class="eckbox right-bottom"></div>
+                <div id="cnr"></div>
+                <!-- <div id="test"></div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="controls">
+          <div class="reset-btn">
+            <button class="reset-filter">Reset Filters</button>
+            <button class="reset-filter" id="reset-image">Reset Image</button>
+          </div>
+          <div class="row">
+            <button class="choose-img">Choose Image</button>
+            <button class="save-img">Save Image</button>
+          </div>
+        </div>
+      </div>
+      <div id="canvas" style="display: none"></div>
+      <div class="overlay" id="overlay">
+        <h2 class="loader">
+          <span class="letter let1">p</span>
+          <span class="letter let2">r</span>
+          <span class="letter let3">o</span>
+          <span class="letter let4">c</span>
+          <span class="letter let5">e</span>
+          <span class="letter let6">s</span>
+          <span class="letter let7">s</span>
+          <span class="letter let8">i</span>
+          <span class="letter let9">n</span>
+          <span class="letter let10">g</span>
+        </h2>
+      </div>
+    </section>
+
+    <script src="./src/js/index.script.js"></script>
+  </body>
+</html>
