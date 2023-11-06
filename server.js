@@ -1,3 +1,4 @@
+import fs from "fs";
 import express from "express";
 import { imgResize, imgCrop } from "./functions";
 
@@ -36,6 +37,10 @@ app.post("/crop", async (request, response) => {
     status: "success",
     cropped: savePath,
   });
+});
+
+app.delete("/clear", (req, res) => {
+  fs.rmSync("./public/output", { recursive: true, force: true });
 });
 
 app.listen(port, () => console.log(`The server is listening on port ${port}`));

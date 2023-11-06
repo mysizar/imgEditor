@@ -106,7 +106,8 @@
   justify-content: center;
   align-items: center;
   background-color: #3d4082;
-  position: absolute;
+  position: fixed;
+  top: 0;
   z-index: 10;
   opacity: 0.95;
 }
@@ -525,32 +526,110 @@
 }
 
 @media screen and (max-width: 760px) {
+  .drag-area {
+    height: calc(100vh - 50px);
+    width: calc(100vw - 50px);
+    min-width: auto;
+  }
+
+  .drag-area header {
+    display: none;
+  }
+
+  .drag-area span {
+    visibility: hidden;
+  }
+
   .container {
-    padding: 25px;
+    padding: 15px;
   }
   .container .wrapper {
     flex-wrap: wrap-reverse;
     max-height: none;
+    margin: 0;
   }
   .wrapper .editor-group {
     width: 100%;
   }
   .wrapper .preview-img {
     width: 100%;
-    min-height: 30vh;
-    margin: 0 0 15px;
+    height: 60vh;
+    margin: 5px 0;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    box-shadow: 0 5px 10px #00000033;
+    margin-bottom: 15px;
   }
 }
 
 @media screen and (max-width: 500px) {
+  .controls {
+    flex-wrap: nowrap;
+    gap: 5px;
+  }
+
   .controls button {
     width: 100%;
-    margin-bottom: 10px;
+    padding: 5px 0;
   }
   .controls .row {
     width: 100%;
   }
   .controls .row .save-img {
     margin-left: 0px;
+  }
+  .editor-panel .filter {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .editor-panel .title {
+    display: none;
+  }
+  .editor-panel .filter button {
+    width: calc(100% / 4 - 4px);
+    color: transparent !important;
+    position: relative;
+  }
+  .filter button.active::before {
+    filter: brightness(4);
+  }
+  .editor-panel .filter button::before {
+    content: "";
+    background: url(../img/tonality.svg);
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    position: absolute;
+    left: calc();
+    transform: translateX(-50%);
+    left: 50%;
+  }
+  .editor-panel .filter #brightness::before {
+    background: url(../img/brightness.svg);
+  }
+  .editor-panel .filter #saturation::before {
+    background: url(../img/saturation.svg);
+  }
+  .editor-panel .filter #contrast::before {
+    background: url(../img/contrast.svg);
+  }
+  .editor-panel .filter #grayscale::before {
+    background: url(../img/tonality.svg);
+  }
+  .filter .slider {
+    margin: 0 0 12px;
+  }
+  .editor-panel .rotate {
+    margin-top: 0px;
+  }
+  .controls .reset-filter {
+    margin-right: 0;
+  }
+  .controls .row,
+  .controls .reset-btn {
+    width: 100%;
+    display: flex;
+    gap: 5px;
   }
 }

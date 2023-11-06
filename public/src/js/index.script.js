@@ -219,7 +219,7 @@ const saveImage = async () => {
   // TODO: which quality?
   const link = document.createElement("a");
   link.href = await checkChanges();
-  link.download = "image.png";
+  link.download = "image.jpg";
   link.click();
 };
 
@@ -688,5 +688,17 @@ function fixPreview() {
 }
 
 //---------------------------------------------------------
+
+window.addEventListener("beforeunload", (event) => {
+  event.preventDefault();
+  fetch("/clear", { method: DELETE });
+  return (event.returnValue = "Are you sure you want to exit?");
+});
+
+// window.addEventListener("beforeunload", (event) => {
+//   event.preventDefault();
+//   event.returnValue = "";
+//   fetch("/clear", { method: DELETE });
+// });
 //---------------------------------------------------------
 //---------------------------------------------------------
