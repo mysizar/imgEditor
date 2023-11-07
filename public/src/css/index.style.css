@@ -557,6 +557,7 @@
     background-color: white;
     box-shadow: 0 5px 10px #00000033;
     margin-bottom: 15px;
+    background-image: url("../img/bgr.png");
   }
 }
 
