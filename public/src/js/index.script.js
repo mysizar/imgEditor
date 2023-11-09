@@ -747,7 +747,8 @@ function errorHandler(message) {
   p.style.cssText = `
     border: 1px dashed;
     padding: 0.5rem;
-    margin: 1rem;`;
+    margin: 1rem;
+    text-align: center;`;
   p.innerText = message;
 
   const button = document.createElement("button");
