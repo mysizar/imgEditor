@@ -284,6 +284,20 @@ async function resizeImg() {
       errorHandler(json.message);
       return;
     }
+
+    // clear values
+    resizeW.value = "";
+    resizeH.value = "";
+    resizeBtn.disabled = true;
+    previewImg.style.width = "";
+    previewImg.style.height = "";
+
+    // show resized img from server
+    previewImg.src = json.resized;
+    // disable animation after loading the picture
+    previewImg.addEventListener("load", () => {
+      document.getElementById("overlay").style.display = "none";
+    });
   } catch (error) {
     console.log(error);
     if (error.message === "Unexpected end of JSON input") {
@@ -293,22 +307,7 @@ async function resizeImg() {
     } else {
       errorHandler(error.message);
     }
-    return;
   }
-
-  // clear values
-  resizeW.value = "";
-  resizeH.value = "";
-  resizeBtn.disabled = true;
-  previewImg.style.width = "";
-  previewImg.style.height = "";
-
-  // show resized img from server
-  previewImg.src = json.resized;
-  // disable animation after loading the picture
-  previewImg.addEventListener("load", () => {
-    document.getElementById("overlay").style.display = "none";
-  });
 }
 
 resizeBtn.addEventListener("click", resizeImg);
@@ -621,6 +620,19 @@ async function cropImg() {
       errorHandler(json.message);
       return;
     }
+
+    // clear values
+    cropBtn.disabled = true;
+    previewImg.style.width = "";
+    previewImg.style.height = "";
+
+    // show resized img from server
+    previewImg.src = json.cropped;
+
+    // disable animation after loading the picture
+    previewImg.addEventListener("load", () => {
+      document.getElementById("overlay").style.display = "none";
+    });
   } catch (error) {
     console.log(error);
     if (error.message === "Unexpected end of JSON input") {
@@ -630,21 +642,7 @@ async function cropImg() {
     } else {
       errorHandler(error.message);
     }
-    return;
   }
-
-  // clear values
-  cropBtn.disabled = true;
-  previewImg.style.width = "";
-  previewImg.style.height = "";
-
-  // show resized img from server
-  previewImg.src = json.cropped;
-
-  // disable animation after loading the picture
-  previewImg.addEventListener("load", () => {
-    document.getElementById("overlay").style.display = "none";
-  });
 }
 
 /* ---------------------------------------------------- */
