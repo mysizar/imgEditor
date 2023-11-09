@@ -599,6 +599,11 @@ async function cropImg() {
   const json = await response.json();
   console.log(json);
 
+  if (json.status === "error") {
+    errorHandler(json.message);
+    return;
+  }
+
   // clear values
   cropBtn.disabled = true;
   previewImg.style.width = "";
@@ -687,18 +692,57 @@ function fixPreview() {
   }
 }
 
+function errorHandler(message) {
+  document.getElementById("overlay").style.display = "none";
+  const div = document.createElement("div");
+  div.setAttribute("id", "error");
+  div.style.cssText = `
+    width: 50vw;
+    min-width: 320px;
+    height: 50vh;
+    background-color: rgb(61 64 130 / 98%);
+    color: white;
+    display: flex;
+    place-content: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 20;
+    align-items: center;
+    flex-direction: column;
+    transform: translate(-50%, -50%);
+    justify-content: center;`;
+
+  const h2 = document.createElement("h2");
+  h2.innerText = "Server Error!";
+
+  const p = document.createElement("p");
+  p.style.cssText = `
+    border: 1px dashed;
+    padding: 0.5rem;
+    margin: 1rem;`;
+  p.innerText = message;
+
+  const button = document.createElement("button");
+  button.style.cssText = `
+    outline: none;
+    height: 40px;
+    font-size: 14px;
+    color: #6c757d;
+    background: #fff;
+    border-radius: 3px;
+    /* margin-bottom: 8px; */
+    border: 1px solid #aaa;
+    cursor: pointer;
+    width: 15%;
+    min-width: 100px;`;
+  button.innerText = "Ok";
+  button.onclick = () => document.getElementById("error").remove();
+
+  div.append(h2, p, button);
+  document.body.appendChild(div);
+}
+
 //---------------------------------------------------------
-
-window.addEventListener("beforeunload", (event) => {
-  event.preventDefault();
-  fetch("/clear", { method: DELETE });
-  return (event.returnValue = "Are you sure you want to exit?");
-});
-
-// window.addEventListener("beforeunload", (event) => {
-//   event.preventDefault();
-//   event.returnValue = "";
-//   fetch("/clear", { method: DELETE });
-// });
 //---------------------------------------------------------
 //---------------------------------------------------------
