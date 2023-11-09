@@ -275,9 +275,26 @@ async function resizeImg() {
   };
 
   // get response from server
-  const response = await fetch("/resize", options);
-  const json = await response.json();
-  console.log(json);
+  try {
+    const response = await fetch("/resize", options);
+    const json = await response.json();
+    console.log(json);
+
+    if (json.status === "error") {
+      errorHandler(json.message);
+      return;
+    }
+  } catch (error) {
+    console.log(error);
+    if (error.message === "Unexpected end of JSON input") {
+      errorHandler(
+        "The image is probably too large.\nPlease select a smaller image."
+      );
+    } else {
+      errorHandler(error.message);
+    }
+    return;
+  }
 
   // clear values
   resizeW.value = "";
@@ -595,12 +612,24 @@ async function cropImg() {
   };
 
   // get response from server
-  const response = await fetch("/crop", options);
-  const json = await response.json();
-  console.log(json);
+  try {
+    const response = await fetch("/crop", options);
+    const json = await response.json();
+    console.log(json);
 
-  if (json.status === "error") {
-    errorHandler(json.message);
+    if (json.status === "error") {
+      errorHandler(json.message);
+      return;
+    }
+  } catch (error) {
+    console.log(error);
+    if (error.message === "Unexpected end of JSON input") {
+      errorHandler(
+        "The image is probably too large.\nPlease select a smaller image."
+      );
+    } else {
+      errorHandler(error.message);
+    }
     return;
   }
 
@@ -697,9 +726,9 @@ function errorHandler(message) {
   const div = document.createElement("div");
   div.setAttribute("id", "error");
   div.style.cssText = `
-    width: 50vw;
+    width: 100vw;
     min-width: 320px;
-    height: 50vh;
+    height: 100vh;
     background-color: rgb(61 64 130 / 98%);
     color: white;
     display: flex;
@@ -735,8 +764,8 @@ function errorHandler(message) {
     border: 1px solid #aaa;
     cursor: pointer;
     width: 15%;
-    min-width: 100px;`;
-  button.innerText = "Ok";
+    min-width: 120px;`;
+  button.innerText = "OK";
   button.onclick = () => document.getElementById("error").remove();
 
   div.append(h2, p, button);
