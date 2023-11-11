@@ -23,4 +23,6 @@ app.use((err, req, res, next) => {
   });
 });
 
+app.get("/cron", (req, res) => res.status(200).json({ status: "OK" }));
+
 app.listen(port, () => console.log(`The server is listening on port ${port}`));
